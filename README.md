@@ -7,6 +7,31 @@ Drop functions into `commands/`, annotate them with `@cli_command(...)`, and the
 
 ---
 
+## Summary
+
+- [Project Layout](#project-layout)
+- [Quick Start](#quick-start)
+    - [Expected outputs (examples)](#expected-outputs-(examples):)
+
+<br/>
+
+- [Adding Your Own Commands](#adding-your-own-commands)
+  - [Option A) Without Arguments](#option-a)-without-arguments)
+  - [Option B) Using Positional Arguments](#option-b)-using-positional-arguments)
+  - [Option C) Using Flag Arguments](#option-c)-using-flag-arguments)
+
+<br/>
+
+- [How the `@cli_command` decorator works?](#how-the-@cli_command-decorator-works)
+- [Built-in Commands](#built-in-commands)
+- [App Configuration](#app-configuration)
+- [Packaging](#packaging-(optional))
+- [License](#license)
+
+---
+<br/>
+
+
 ## Project Layout
 
 ```
@@ -29,6 +54,8 @@ cli-starter/
 - `cli.py` – sets up logging/argparse, imports `commands`, and wires everything up
 
 ---
+<br/>
+
 
 ## Quick Start
 
@@ -41,26 +68,28 @@ cli-starter/
 #### Expected outputs (examples):
 
 ```
-> py -m cli hello
-Hello World!!!
+py -m cli hello
 ```
+> Hello World!!!
 
 ```
-> py -m cli greet Bob 42
-Hello, Bob! You are 42 years old!!!
+py -m cli greet Bob 42
 ```
+> Hello, Bob! You are 42 years old!!!
 
 ```
-> py -m cli greet-flags -p Alice -a 30
-Hello, Alice! You are 30 years old!!!
+py -m cli greet-flags -p Alice -a 30
 ```
+> Hello, Alice! You are 30 years old!!!
 
 ```
-> py -m cli greet-flags --person Bob --age 25 --excited
-HELLO, BOB! YOU ARE 25 YEARS OLD!!!
+py -m cli greet-flags --person Bob --age 25 --excited
 ```
+> HELLO, BOB! YOU ARE 25 YEARS OLD!!!
 
 ---
+<br/>
+
 
 ## Adding Your Own Commands
 
@@ -92,9 +121,9 @@ def hello_world(args) -> int:
 
 **Usage example:**
 ```
-> py -m cli hello
-Hello World!!!
+py -m cli hello
 ```
+> Hello World!!!
 
 
 ### Option B) Using Positional Arguments
@@ -128,9 +157,9 @@ def greet_with_positional(args) -> int:
 
 **Usage example:**
 ```
-> py -m cli greet Bob 42
-Hello, Bob! You are 42 years old!!!
+py -m cli greet Bob 42
 ```
+> Hello, Bob! You are 42 years old!!!
 
 
 ### Option C) Using Flag Arguments
@@ -176,15 +205,17 @@ def greet_with_flags(args) -> int:
 
 **Usage examples:**
 ```
-> py -m cli greet-flags -p Alice -a 30
-Hello, Alice! You are 30 years old!!!
+py -m cli greet-flags -p Alice -a 30
 ```
+> Hello, Alice! You are 30 years old!!!
 
 ```
-> py -m cli greet-flags --person Bob --age 25 --excited
-HELLO, BOB! YOU ARE 25 YEARS OLD!!!
+py -m cli greet-flags --person Bob --age 25 --excited
 ```
+> HELLO, BOB! YOU ARE 25 YEARS OLD!!!
 ---
+<br/>
+
 
 ## How the `@cli_command` decorator works?
 
@@ -229,13 +260,16 @@ for cmd_name, meta in COMMAND_REGISTRY.items():
 ```
 
 ---
+<br/>
+
 
 ## Built-in Commands
   
 #### `-h` or `--help` — shows app help with loaded commands:
 ```
-> py -m cli -h
-usage: cli [-h] {status,hello,greet,greet-flags} ...
+py -m cli -h
+```
+> usage: cli [-h] {status,hello,greet,greet-flags} ...
 
 A minimal CLI application with dynamically loaded commands.
 
@@ -248,13 +282,13 @@ positional arguments:
 
 options:
   -h, --help            show this help message and exit
-```
 
 
 #### `status` — shows app config and the list of loaded commands:
 ```
-> py -m cli status
-{
+py -m cli status
+```
+> {
   "APP_VERSION": "0.3.0",
   "APP_NAME": "myapp",
   "DISPLAY_NAME": "Dynamic CLI Application",
@@ -264,9 +298,10 @@ options:
     "hello"
   ]
 }
-```
 
 ---
+<br/>
+
 
 ## App Configuration
 
@@ -280,6 +315,8 @@ DESCRIPTION = "A minimal CLI application with dynamically loaded commands."
 ```
 
 ---
+<br/>
+
 
 ## Packaging (optional)
 
@@ -304,6 +341,8 @@ cli-starter status
 ```
 
 ---
+<br/>
+
 
 ## License
 
