@@ -14,7 +14,7 @@ Drop functions into `commands/`, annotate them with `@cli_command(...)`, and the
 <br/>
 
 - [Adding Your Own Commands](#adding-your-own-commands)
-  - [Option A) Without Arguments](#option-a)-without-arguments)
+  - [Option A) Without Arguments](#[Option-A]-Without-Arguments)
   - [Option B) Using Positional Arguments](#option-b)-using-positional-arguments)
   - [Option C) Using Flag Arguments](#option-c)-using-flag-arguments)
 
@@ -102,7 +102,7 @@ from .my_command import my_function
 
 3- Choose one of the options below to decorate your function with `@cli_command`:
 
-### Option A) Without Arguments
+### [Option A] Without Arguments
 
 **Example `commands/hello_world.py`:**
 ```python
@@ -124,7 +124,7 @@ py -m cli hello
 > Hello World!!!
 
 
-### Option B) Using Positional Arguments
+### [Option B] Using Positional Arguments
 
 **Example `commands/greet_with_positional.py`:**
 ```python
@@ -160,7 +160,7 @@ py -m cli greet Bob 42
 > Hello, Bob! You are 42 years old!!!
 
 
-### Option C) Using Flag Arguments
+### [Option C] Using Flag Arguments
 
 **Example `commands/greet_with_flags.py`:**
 ```python
@@ -267,7 +267,9 @@ for cmd_name, meta in COMMAND_REGISTRY.items():
 ```
 py -m cli -h
 ```
-> usage: cli [-h] {status,hello,greet,greet-flags} ...
+> output:
+```
+usage: cli [-h] {status,hello,greet,greet-flags} ...
 
 A minimal CLI application with dynamically loaded commands.
 
@@ -280,22 +282,26 @@ positional arguments:
 
 options:
   -h, --help            show this help message and exit
-
+```
 
 #### `status` — shows app config and the list of loaded commands:
 ```
 py -m cli status
 ```
-> {
-  "APP_VERSION": "0.3.0",
-  "APP_NAME": "myapp",
+> output:
+```
+{
+  "APP_NAME": "cli",
+  "APP_VERSION": "0.1.0",
   "DISPLAY_NAME": "Dynamic CLI Application",
-  "dynamic_commands": [
+  "DESCRIPTION": "A minimal CLI application with dynamically loaded commands.",
+  "COMMAND_REGISTRY": [
     "greet",
     "greet-flags",
     "hello"
   ]
 }
+```
 
 ---
 <br/>
