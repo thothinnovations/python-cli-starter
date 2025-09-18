@@ -7,8 +7,6 @@ Drop functions into `commands/`, annotate them with `@cli_command(...)`, and the
 
 ---
 
-## Summary
-
 - [Project Layout](#project-layout)
 - [Quick Start](#quick-start)
     - [Expected outputs (examples)](#expected-outputs-(examples):)
