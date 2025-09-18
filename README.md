@@ -9,14 +9,13 @@ Drop functions into `commands/`, annotate them with `@cli_command(...)`, and the
 
 - [Project Layout](#project-layout)
 - [Quick Start](#quick-start)
-    - [Expected outputs (examples)](#expected-outputs-(examples):)
 
 <br/>
 
 - [Adding Your Own Commands](#adding-your-own-commands)
-  - [Option A) Without Arguments](#[Option-A]-Without-Arguments)
-  - [Option B) Using Positional Arguments](#option-b)-using-positional-arguments)
-  - [Option C) Using Flag Arguments](#option-c)-using-flag-arguments)
+  - [Option A) Without Arguments](#option-a-without-arguments)
+  - [Option B) Using Positional Arguments](#option-b-using-positional-arguments)
+  - [Option C) Using Flag Arguments](#option-c-using-flag-arguments)
 
 <br/>
 
@@ -102,6 +101,8 @@ from .my_command import my_function
 
 3- Choose one of the options below to decorate your function with `@cli_command`:
 
+<br/>
+
 ### [Option A] Without Arguments
 
 **Example `commands/hello_world.py`:**
@@ -123,6 +124,8 @@ py -m cli hello
 ```
 > Hello World!!!
 
+
+<br/>
 
 ### [Option B] Using Positional Arguments
 
@@ -159,6 +162,8 @@ py -m cli greet Bob 42
 ```
 > Hello, Bob! You are 42 years old!!!
 
+
+<br/>
 
 ### [Option C] Using Flag Arguments
 
