@@ -12,7 +12,6 @@ Drop functions into `commands/`, annotate them with `@cli_command(...)`, and the
 - [Project Layout](#project-layout)
 - [Quick Start](#quick-start)
 
-<br/>
 
 #### Guide
 - [Adding Your Own Commands](#adding-your-own-commands)
@@ -20,7 +19,6 @@ Drop functions into `commands/`, annotate them with `@cli_command(...)`, and the
   - [Option B) Using Positional Arguments](#option-b-using-positional-arguments)
   - [Option C) Using Flag Arguments](#option-c-using-flag-arguments)
 
-<br/>
 
 #### About
 - [How the `@cli_command` decorator works?](#how-the-@cli_command-decorator-works)
