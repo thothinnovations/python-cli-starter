@@ -7,11 +7,14 @@ Drop functions into `commands/`, annotate them with `@cli_command(...)`, and the
 
 ---
 
+#### Overview
+
 - [Project Layout](#project-layout)
 - [Quick Start](#quick-start)
 
 <br/>
 
+#### Guide
 - [Adding Your Own Commands](#adding-your-own-commands)
   - [Option A) Without Arguments](#option-a-without-arguments)
   - [Option B) Using Positional Arguments](#option-b-using-positional-arguments)
@@ -19,6 +22,7 @@ Drop functions into `commands/`, annotate them with `@cli_command(...)`, and the
 
 <br/>
 
+#### About
 - [How the `@cli_command` decorator works?](#how-the-@cli_command-decorator-works)
 - [Built-in Commands](#built-in-commands)
 - [App Configuration](#app-configuration)
@@ -44,11 +48,11 @@ cli-starter/
    └─ decorator.py
 ```
 
-- `internals/config.py` – app constants (name, version, display name, description)
-- `internals/decorator.py` – the decorator + registry used by `cli.py`
-- `commands/` – command modules that call the decorator (imported for side effects)
-- `commands/__init__.py` – imports each command module so they are discovered
-- `cli.py` – sets up logging/argparse, imports `commands`, and wires everything up
+- `cli.py` – main CLI entry-point
+- `commands/` – example command modules **(create your modules here)**
+- `commands/__init__.py` – lists commands to be discovered by the CLI  **(import your commands here)**
+- `internals/config.py` – the constants used by the CLI
+- `internals/decorator.py` – the decorator and registry used by the CLI
 
 ---
 <br/>
@@ -288,6 +292,9 @@ positional arguments:
 options:
   -h, --help            show this help message and exit
 ```
+
+<br/>
+
 
 #### `status` — shows app config and the list of loaded commands:
 ```
