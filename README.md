@@ -25,6 +25,7 @@ cli-starter/
 - `internals/config.py` – app constants (name, version, display name, description)
 - `internals/decorator.py` – the decorator + registry used by `cli.py`
 - `commands/` – command modules that call the decorator (imported for side effects)
+- `commands/__init__.py` – imports each command module so they are discovered
 - `cli.py` – sets up logging/argparse, imports `commands`, and wires everything up
 
 ---
@@ -74,69 +75,115 @@ from .my_command import my_function
 
 3- Choose one of the options below to decorate your function with `@cli_command`:
 
-### Option A) Using Positional Arguments
+### Option A) Without Arguments
 
-**Example `commands/greet_pet.py`:**
+**Example `commands/hello_world.py`:**
 ```python
 from internals.decorator import cli_command
 
 @cli_command(
-    name="greet-pet",
-    help="Greet a pet by name and species (positional).",
-    arguments=[
-        {"name": "name", "kwargs": {"help": "Pet's name", "type": str}},
-        {"name": "species", "kwargs": {"help": "Pet's species", "type": str}},
-    ],
+    name="hello",
+    help="Prints a hello world message."
 )
-def greet_pet(args) -> int:
-    print(f"Nice to meet you, {args.name} the {args.species}!")
-    return 0  # Ensure the function returns an integer
+def hello_world(args) -> int:
+    print("Hello World!!!")
+    return 0
 ```
-> Remember to add `from . import greet_pet` in `commands/__init__.py` so the module is imported.
 
 **Usage example:**
 ```
-> py -m cli greet-pet Coco parrot
-Nice to meet you, Coco the parrot!
+> py -m cli hello
+Hello World!!!
 ```
 
 
-### Option B) Using Flag Arguments
+### Option B) Using Positional Arguments
 
-**Example `commands/say.py`:**
+**Example `commands/greet_with_positional.py`:**
 ```python
-from internals.decorator import cli_command
-
 @cli_command(
-    name="say",
-    help="Say a message a number of times (flags).",
+    name="greet",
+    help="Greets a {person} with their {age}. (USAGE: `greet Bob 42`)",
     arguments=[
-        {"flags": ["-m", "--message"], "kwargs": {"help": "Message to print", "type": str, "required": True}},
-        {"flags": ["-n", "--times"], "kwargs": {"help": "How many times", "type": int, "default": 1}},
-        {"flags": ["-e", "--excited"], "kwargs": {"help": "Make it ALL CAPS", "action": "store_true"}},
+        {
+            "name": "person",
+            "kwargs": {
+                "help": "Person's name",
+                "type": str
+            }
+        },
+        {
+            "name": "age",
+            "kwargs": {
+                "help": "Age in years",
+                "type": int
+            }
+        },
     ],
 )
-def say(args) -> int:
-    msg = args.message.upper() if args.excited else args.message
-    for _ in range(args.times):
-        print(msg)
-    return 0  # Ensure the function returns an integer
+def greet_with_positional(args) -> int:
+    print(f"Hello, {args.person}! You are {args.age} years old!!!")
+    return 0
 ```
-> Remember to add `from . import say` in `commands/__init__.py` so the module is imported.
 
 **Usage example:**
 ```
-> py -m cli say -m "hi"
-hi
+> py -m cli greet Bob 42
+Hello, Bob! You are 42 years old!!!
+```
+
+
+### Option C) Using Flag Arguments
+
+**Example `commands/greet_with_flags.py`:**
+```python
+@cli_command(
+    name="greet-flags",
+    help="Greets a person using flags for name and age.",
+    arguments=[
+        {
+            "flags": ["-p", "--person"],
+            "kwargs": {
+                "help": "Person's name",
+                "type": str,
+                "required": True
+            }
+        },
+        {
+            "flags": ["-a", "--age"],
+            "kwargs": {
+                "help": "Age in years",
+                "type": int,
+                "required": True
+            }
+        },
+        {
+            "flags": ["-e", "--excited"],
+            "kwargs": {
+                "help": "Make it all caps",
+                "action": "store_true"
+            }
+        },
+    ],
+)
+def greet_with_flags(args) -> int:
+    message = f"Hello, {args.person}! You are {args.age} years old!!!"
+    if args.excited:
+        message = message.upper()
+    print(message)
+    return 0
+```
+
+**Usage examples:**
+```
+> py -m cli greet-flags -p Alice -a 30
+Hello, Alice! You are 30 years old!!!
 ```
 
 ```
-> py -m cli say -m "hi" -n 3 --excited
-HI
-HI
-HI
+> py -m cli greet-flags --person Bob --age 25 --excited
+HELLO, BOB! YOU ARE 25 YEARS OLD!!!
 ```
-
 ---
 
 ## How the `@cli_command` decorator works?
@@ -203,7 +250,6 @@ options:
   -h, --help            show this help message and exit
 ```
 
-<br/>
 
 #### `status` — shows app config and the list of loaded commands:
 ```
